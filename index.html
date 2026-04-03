@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>喜家德AI点餐助手</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ==================== P1: 点餐主页 ==================== -->
+    <div id="page-order" class="page active">
+      <div class="order-header">
+        <div class="order-header-top">
+          <span class="back-icon">‹</span>
+          <span class="store-location">📍 喜家德深圳南山软件园店 | 0.8km ›</span>
+          <span class="header-phone">📞</span>
+        </div>
+        <div class="member-bar">
+          <div class="member-info">
+            <div class="member-title">尊敬的新会员</div>
+            <div class="member-balance">储值余额：0元</div>
+          </div>
+          <div class="member-stars">
+            <span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span>
+            <div class="star-tip">5星会员每月20日2折吃新品!</div>
+          </div>
+        </div>
+        <div class="announcement-bar">
+          <span class="announce-icon">📢</span>
+          <span>1、每月20号上新 2、储值赠送消费金 3、积分兑换产品券</span>
+        </div>
+      </div>
+
+      <div class="order-body">
+        <div class="category-sidebar">
+          <div class="cat-item active">
+            <span class="cat-label">会员专享</span>
+            <span class="cat-sub">Members Exclusive</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-label">新品推荐</span>
+            <span class="cat-sub">New Product</span>
+          </div>
+          <div class="cat-item has-badge">
+            <span class="cat-label">吃水饺</span>
+            <span class="cat-sub">Dumpling</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-label">吃蔬菜</span>
+            <span class="cat-sub">Vegetable</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-label">吃肉</span>
+            <span class="cat-sub">Meat</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-label">主食</span>
+            <span class="cat-sub">Staple food</span>
+          </div>
+          <div class="cat-item">
+            <span class="cat-label">小菜</span>
+            <span class="cat-sub">Side dish</span>
+          </div>
+        </div>
+
+        <div class="product-list">
+          <div class="product-section">
+            <div class="section-header">
+              <span class="section-badge">🏷 玉米鲜肉水饺-会员专享 +1</span>
+            </div>
+            <div class="vip-banner">
+              <div class="vip-banner-title">会员专享</div>
+              <div class="vip-banner-desc">加入新会员，吃饭超省钱</div>
+            </div>
+            <div class="product-card">
+              <img src="images/yumi-dumpling.png" alt="玉米鲜肉水饺" class="product-img" onerror="this.classList.add('placeholder')">
+              <div class="product-detail">
+                <div class="product-name">玉米鲜肉水饺-会员专享</div>
+                <div class="product-price-row">
+                  <span class="price-original">¥23</span>
+                  <span class="price-unit">| 盘</span>
+                  <div class="qty-control">
+                    <span class="qty-minus">−</span>
+                    <span class="qty-num">1</span>
+                    <span class="qty-plus">＋</span>
+                  </div>
+                </div>
+                <div class="vip-price-tag">会员价 <span>¥ 19.10</span>/盘</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-section">
+            <div class="section-title">新品推荐（3）</div>
+            <div class="new-product-banner">
+              <div class="new-banner-title">新品推荐</div>
+              <div class="new-banner-desc">新品尝鲜，道道好味</div>
+            </div>
+            <div class="product-card">
+              <img src="images/meat-pot.png" alt="原味炖鲜肉锅" class="product-img" onerror="this.classList.add('placeholder')">
+              <div class="product-detail">
+                <div class="product-name">原味炖鲜肉锅.</div>
+                <div class="product-price-row">
+                  <span class="price-original">¥24</span>
+                  <span class="price-unit">| 份</span>
+                  <span class="qty-plus alone">＋</span>
+                </div>
+              </div>
+            </div>
+            <div class="product-card">
+              <img src="images/ribs-pot.png" alt="原味炖小排骨锅" class="product-img" onerror="this.classList.add('placeholder')">
+              <div class="product-detail">
+                <div class="product-name">原味炖小排骨锅.</div>
+                <div class="product-price-row">
+                  <span class="price-original">¥24</span>
+                  <span class="price-unit">| 份</span>
+                  <span class="qty-plus alone">＋</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="coupon-float">
+        <div class="coupon-text">优惠券<br><small>点这里使用</small></div>
+      </div>
+
+      <div class="agent-float" id="btn-open-agent">
+        <img src="images/logo.png" alt="小喜" onerror="this.style.display='none';this.parentElement.classList.add('fallback')">
+      </div>
+
+      <div class="cart-bar">
+        <div class="cart-left">
+          <div class="cart-icon-wrap">
+            <img src="images/logo.png" alt="购物车" class="cart-logo" onerror="this.style.display='none'">
+            <span class="cart-badge">1</span>
+          </div>
+          <span class="cart-total">¥ 20.10</span>
+        </div>
+        <div class="cart-checkout-btn">下单并支付</div>
+      </div>
+    </div>
+
+    <!-- ==================== P2: Agent 欢迎页 ==================== -->
+    <div id="page-welcome" class="page">
+      <div class="welcome-header">
+        <div class="welcome-nav">
+          <span class="back-btn" data-target="page-order">‹</span>
+          <div class="nav-dots">••</div>
+          <span class="nav-circle">◎</span>
+        </div>
+        <div class="welcome-hero">
+          <img src="images/mascot.png" alt="小喜" class="mascot-img" onerror="this.classList.add('placeholder-mascot')">
+        </div>
+      </div>
+
+      <div class="welcome-body">
+        <div class="welcome-member">
+          <div class="wm-title">尊敬的新会员</div>
+          <div class="wm-balance">储值余额：0元</div>
+          <div class="wm-stars">☆☆☆☆☆</div>
+        </div>
+
+        <div class="welcome-greeting">
+          <div class="greeting-title">Hi～根据会员等级Agent输出的话术信息</div>
+          <div class="greeting-body">我们的小料在（门口右边小料台位置），且提供免费小菜、紫菜虾皮汤等服务，欢迎自取哟～</div>
+        </div>
+
+        <div class="promo-tabs">
+          <div class="promo-tab active" data-panel="panel-member">会员专享订单</div>
+          <div class="promo-tab" data-panel="panel-dianping">大众点评优惠</div>
+          <div class="promo-tab" data-panel="panel-douyin">抖音优惠</div>
+        </div>
+
+        <div class="promo-panels">
+          <!-- 会员专享 -->
+          <div class="promo-panel active" id="panel-member">
+            <div class="promo-card">
+              <img src="images/yumi-dumpling.png" alt="玉米鲜肉水饺" class="promo-img" onerror="this.classList.add('placeholder')">
+              <div class="promo-info">
+                <div class="promo-name">玉米鲜肉水饺-会员专享</div>
+                <div class="promo-price">¥23 <span class="promo-unit">| 盘</span></div>
+                <div class="promo-vip-price">会员价 ¥ 19.10/盘</div>
+              </div>
+              <span class="promo-add-btn">＋</span>
+            </div>
+          </div>
+
+          <!-- 大众点评优惠 -->
+          <div class="promo-panel" id="panel-dianping">
+            <div class="promo-card">
+              <img src="images/shrimp-dumpling.png" alt="虾三鲜水饺" class="promo-img" onerror="this.classList.add('placeholder')">
+              <div class="promo-info">
+                <div class="promo-name">虾三鲜水饺-大众点评专属</div>
+                <div class="promo-price">¥30 <span class="promo-unit">| 盘</span></div>
+                <div class="promo-vip-price">点评价 ¥ 25.00/盘</div>
+              </div>
+              <span class="promo-add-btn">＋</span>
+            </div>
+          </div>
+
+          <!-- 抖音优惠 -->
+          <div class="promo-panel" id="panel-douyin">
+            <div class="promo-card">
+              <img src="images/xi-dumpling.png" alt="喜三鲜水饺" class="promo-img" onerror="this.classList.add('placeholder')">
+              <div class="promo-info">
+                <div class="promo-name">喜三鲜水饺-抖音团购</div>
+                <div class="promo-price">¥31 <span class="promo-unit">| 盘</span></div>
+                <div class="promo-vip-price">团购价 ¥ 24.80/盘</div>
+              </div>
+              <span class="promo-add-btn">＋</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-suggest">
+          您也可以试着跟我说："<b>帮我来个招牌菜</b>"，"<b>帮我来份（主推产品）</b>"
+        </div>
+
+        <div class="quick-btns">
+          <div class="quick-btn" data-action="recommend" data-text="玉米鲜肉水饺">玉米鲜肉水饺</div>
+          <div class="quick-btn" data-action="recommend" data-text="虾三鲜水饺">虾三鲜水饺</div>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input type="text" class="input-field" placeholder="请输入文本..." id="welcome-input">
+        <div class="mic-btn" id="welcome-send-btn"><img src="images/mic.png" alt="语音" class="mic-icon"></div>
+      </div>
+      <div class="powered-by">请在使用本功能前阅读并接受体验官《授权提示》<br>DouBao LLM</div>
+    </div>
+
+    <!-- ==================== P3: 对话推荐页 ==================== -->
+    <div id="page-chat" class="page">
+      <div class="chat-nav">
+        <span class="back-btn" data-target="page-welcome">‹</span>
+        <span class="chat-title">喜家德AI点餐助手</span>
+        <div class="nav-right">
+          <span class="nav-dots">••</span>
+          <span class="nav-circle">◎</span>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chat-messages">
+        <!-- Messages inserted by JS -->
+      </div>
+
+      <div class="input-bar">
+        <input type="text" class="input-field" placeholder="请输入文本..." id="chat-input">
+        <div class="mic-btn"><img src="images/mic.png" alt="语音" class="mic-icon"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P4: 订单确认页 ==================== -->
+    <div id="page-confirm" class="page">
+      <div class="chat-nav">
+        <span class="back-btn" data-target="page-chat">‹</span>
+        <span class="chat-title">喜家德AI点餐助手</span>
+        <div class="nav-right">
+          <span class="nav-dots">••</span>
+          <span class="nav-circle">◎</span>
+        </div>
+      </div>
+
+      <div class="confirm-body">
+        <div class="agent-msg-row">
+          <img src="images/smalllogo.png" alt="小喜" class="avatar" onerror="this.classList.add('avatar-fallback')">
+          <div class="confirm-hint">请确认订单信息，如需修改请告诉我哦～</div>
+        </div>
+
+        <div class="order-card">
+          <div class="order-product">
+            <img src="images/yumi-dumpling.png" alt="玉米鲜肉水饺" class="order-img" onerror="this.classList.add('placeholder')">
+            <div class="order-product-info">
+              <div class="order-product-name">玉米鲜肉水饺-会员专享</div>
+              <div class="order-product-spec">¥23 | 盘</div>
+              <div class="order-qty-row">
+                <span class="qty-minus">−</span>
+                <span class="qty-num">1</span>
+                <span class="qty-plus">＋</span>
+              </div>
+              <div class="vip-price-tag">会员价 <span>¥ 19.10</span>/盘</div>
+            </div>
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="order-row">
+            <span class="order-row-label">优惠</span>
+            <div class="order-row-content">
+              <span class="coupon-icon">🎫</span> 优惠券
+              <span class="order-row-arrow">暂无可用优惠券 ›</span>
+            </div>
+          </div>
+
+          <div class="order-row">
+            <span class="order-row-label">备注</span>
+            <div class="order-row-content">
+              <span class="order-row-arrow">口味、偏好等要求 ›</span>
+            </div>
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="order-summary">
+            <div class="order-summary-left">
+              <span class="discount-text">已优惠 <b>¥3.90</b></span>
+              <span class="original-price">¥23</span>
+            </div>
+            <div class="order-summary-right">
+              <span class="item-count">共 1 件</span>
+              <span class="final-price">¥19.10</span>
+              <div class="settle-btn" id="btn-settle">下单并支付</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feedback-row">
+          <span class="feedback-btn">👍</span>
+          <span class="feedback-btn">👎</span>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input type="text" class="input-field" placeholder="请输入文本...">
+        <div class="mic-btn"><img src="images/mic.png" alt="语音" class="mic-icon"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P5: 支付弹窗 ==================== -->
+    <div id="payment-modal" class="modal-overlay hidden">
+      <div class="payment-sheet">
+        <div class="payment-close" id="btn-close-payment">×</div>
+        <div class="payment-merchant">喜家德</div>
+        <div class="payment-amount">¥ <span class="payment-num">19.10</span></div>
+
+        <div class="payment-method-section">
+          <div class="payment-method-label">付款方式 <span class="method-change">更改 ›</span></div>
+          <div class="payment-method-card active">
+            <div class="method-icon cmb">Ⓜ</div>
+            <div class="method-info">
+              <div class="method-name">招商银行储蓄卡</div>
+              <div class="method-number">**** **** **** 1502</div>
+            </div>
+            <span class="method-check">✓</span>
+          </div>
+          <div class="payment-method-card">
+            <div class="method-icon bocom">🏦</div>
+            <div class="method-info">
+              <div class="method-name">使用交通银行储蓄卡(9358) 优惠6元</div>
+            </div>
+            <span class="method-use">使用</span>
+          </div>
+        </div>
+
+        <div class="payment-keypad">
+          <div class="keypad-input">
+            <span class="dot">●</span><span class="dot">●</span><span class="dot">●</span>
+            <span class="dot empty">○</span><span class="dot empty">○</span><span class="dot empty">○</span>
+          </div>
+          <div class="keypad-grid">
+            <div class="key">1</div><div class="key">2</div><div class="key">3</div>
+            <div class="key">4</div><div class="key">5</div><div class="key">6</div>
+            <div class="key">7</div><div class="key">8</div><div class="key">9</div>
+            <div class="key"></div><div class="key">0</div><div class="key del" id="btn-pay-confirm">⌫</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== P6: 支付完成页 ==================== -->
+    <div id="page-success" class="page">
+      <div class="chat-nav">
+        <span class="back-btn" data-target="page-order">‹</span>
+        <span class="chat-title">喜家德AI点餐助手</span>
+        <div class="nav-right">
+          <span class="nav-dots">••</span>
+          <span class="nav-circle">◎</span>
+        </div>
+      </div>
+
+      <div class="success-body">
+        <div class="success-collapse">
+          <div class="agent-msg-row">
+            <img src="images/smalllogo.png" alt="小喜" class="avatar" onerror="this.classList.add('avatar-fallback')">
+            <div class="confirm-hint">请确认订单信息，如需修改请告诉我哦～ <span class="collapse-arrow">∧</span></div>
+          </div>
+          <div class="success-order-summary">
+            <div class="success-item-row">
+              <span class="success-dot">◉</span>
+              <span>商品共计1件</span>
+              <span class="success-check">✓</span>
+            </div>
+            <div class="success-item-detail">
+              <img src="images/yumi-dumpling.png" alt="" class="success-img" onerror="this.classList.add('placeholder')">
+              <div class="success-item-info">
+                <div class="success-item-name">玉米鲜肉水饺-会员专享</div>
+                <div class="success-item-spec">盘 <span class="vip-badge-sm">会员价</span></div>
+                <div class="success-item-qty">x1</div>
+              </div>
+              <div class="success-item-prices">
+                <span class="price-del">¥ 23.00</span>
+                <span class="price-real">¥ 19.10</span>
+              </div>
+              <img src="images/logo.png" alt="" class="brand-stamp" onerror="this.style.display='none'">
+            </div>
+            <div class="success-payment-row">
+              <span class="wechat-icon">✅</span> 微信支付 <span class="success-check">✓</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="agent-msg-row" style="margin-top:16px;">
+          <img src="images/smalllogo.png" alt="小喜" class="avatar" onerror="this.classList.add('avatar-fallback')">
+          <div class="success-agent-text">您的餐品正在制作中，可以先去收银台右侧盛一碗免费的紫菜虾⽪汤～还有其他免费的小菜和小料欢迎品尝～</div>
+        </div>
+
+        <div class="success-detail-card">
+          <div class="detail-title">餐品详情</div>
+          <div class="detail-product-row">
+            <img src="images/yumi-dumpling.png" alt="" class="detail-img" onerror="this.classList.add('placeholder')">
+            <div class="detail-product-info">
+              <div class="detail-product-name">
+                <span class="discount-badge">折</span> 玉米鲜肉水饺-会员<br>专享
+              </div>
+              <div class="detail-spec">盘 <span class="vip-badge-sm">会员价</span></div>
+              <div class="detail-qty">x1</div>
+            </div>
+            <div class="detail-prices">
+              <span class="price-del">¥ 23.00</span>
+              <span class="price-real">¥ 19.10</span>
+            </div>
+            <img src="images/logo.png" alt="" class="brand-stamp" onerror="this.style.display='none'">
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="detail-row">
+            <span>优惠</span>
+            <span></span>
+          </div>
+          <div class="detail-row">
+            <span>储值卡</span>
+            <span class="green">¥ 0</span>
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="detail-total-row">
+            <span>共计1道菜，实际金额</span>
+            <span class="final-price">¥ 19.10</span>
+          </div>
+
+          <div class="detail-action">
+            <button class="detail-btn">查看详情</button>
+          </div>
+        </div>
+
+        <div class="feedback-row">
+          <span class="feedback-btn">👍</span>
+          <span class="feedback-btn">👎</span>
+        </div>
+      </div>
+
+      <div class="input-bar">
+        <input type="text" class="input-field" placeholder="请输入文本...">
+        <div class="mic-btn"><img src="images/mic.png" alt="语音" class="mic-icon"></div>
+      </div>
+    </div>
+
+    <!-- ==================== P7: 订单详情页 ==================== -->
+    <div id="page-order-detail" class="page">
+      <div class="chat-nav">
+        <span class="back-btn" data-target="page-chat">‹</span>
+        <span class="chat-title">喜家德AI点餐助手</span>
+        <div class="nav-right">
+          <span class="nav-dots">••</span>
+          <span class="nav-circle">◎</span>
+        </div>
+      </div>
+
+      <div class="confirm-body">
+        <div class="order-detail-status">下单成功</div>
+
+        <div class="order-card">
+          <div class="detail-info-row">
+            <span class="detail-info-label">桌号 W01</span>
+            <span class="store-card-sub" style="font-size: 14px;color:#333">喜家德深圳创新科技中心店</span>
+          </div>
+          <div class="detail-info-row">
+            <span class="detail-info-label">就餐方式</span>
+            <span style="color:#333">店内堂食</span>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <div class="detail-title">餐品详情</div>
+          <div id="order-detail-items">
+            <!-- Dynamic items will be inserted here -->
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="detail-row">
+            <span>优惠</span>
+            <span>- ¥ 0.00</span>
+          </div>
+          <div class="detail-row">
+            <span>储值卡</span>
+            <span class="green">¥ 0.00</span>
+          </div>
+
+          <div class="order-divider"></div>
+
+          <div class="detail-total-row">
+            <span id="order-detail-count-text">共计1道菜，实际金额</span>
+            <span class="final-price" id="order-detail-final-price">¥ 19.10</span>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <div class="detail-title">订单信息</div>
+          <div class="detail-info-row">
+            <span class="detail-info-label">订单编号</span>
+            <span>202604010001</span>
+          </div>
+          <div class="detail-info-row">
+            <span class="detail-info-label">下单时间</span>
+            <span>2026-04-01 19:11:00</span>
+          </div>
+          <div class="detail-info-row">
+            <span class="detail-info-label">支付方式</span>
+            <span>微信支付</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-footer">
+        <button class="footer-btn">开发票</button>
+        <button class="footer-btn primary" id="btn-back-home">返回首页</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
