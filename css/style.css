@@ -1,0 +1,450 @@
+/* ====== Reset & Base ====== */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",sans-serif;background:#f5f5f5;color:#333;overflow:hidden;height:100vh;width:100vw}
+img{max-width:100%;display:block}
+input{border:none;outline:none;font-family:inherit}
+button{border:none;outline:none;font-family:inherit;cursor:pointer}
+
+#app{width:100%;max-width:430px;height:100vh;margin:0 auto;position:relative;overflow:hidden;background:#f5f5f5}
+
+/* ====== Page System ====== */
+.page{position:absolute;inset:0;display:none;flex-direction:column;overflow-y:auto;overflow-x:hidden;background:#f5f5f5;z-index:1}
+.page.active{display:flex;z-index:2}
+.page.slide-in{display:flex;z-index:3;animation:slideIn .3s ease forwards}
+.page.slide-out{animation:slideOut .3s ease forwards}
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes slideOut{from{transform:translateX(0)}to{transform:translateX(100%)}}
+
+/* ====== Colors ====== */
+:root{
+  --red:#c4141a;
+  --red-light:#e8393e;
+  --red-bg:#fdf0f0;
+  --gold:#d4a017;
+  --green:#07c160;
+  --gray:#999;
+  --gray-light:#f0f0f0;
+  --border:#eee;
+}
+
+/* ============================================
+   P1: 点餐主页
+   ============================================ */
+#page-order{background:#fff}
+
+.order-header{padding:0 12px;padding-top:env(safe-area-inset-top,20px)}
+.order-header-top{display:flex;align-items:center;padding:8px 0;font-size:13px;color:#666}
+.order-header-top .back-icon{font-size:22px;margin-right:4px;color:#333}
+.store-location{flex:1;font-size:13px}
+.header-phone{font-size:16px}
+
+.member-bar{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0}
+.member-title{font-size:16px;font-weight:600;color:var(--red)}
+.member-balance{font-size:12px;color:var(--gray)}
+.member-stars{text-align:right}
+.member-stars .star{color:var(--gold);font-size:14px;letter-spacing:1px}
+.star-tip{font-size:10px;color:var(--gray);margin-top:2px}
+
+.announcement-bar{background:#fff8e6;border-radius:6px;padding:8px 10px;font-size:12px;color:#b8860b;display:flex;align-items:center;gap:6px;margin-bottom:8px;white-space:nowrap;overflow:hidden}
+.announce-icon{flex-shrink:0}
+
+.order-body{display:flex;flex:1;overflow:hidden}
+
+.category-sidebar{width:80px;flex-shrink:0;background:#f7f7f7;overflow-y:auto;padding-bottom:60px}
+.cat-item{text-align:center;padding:12px 6px;font-size:12px;color:#666;border-left:3px solid transparent;position:relative}
+.cat-item.active{background:#fff;color:var(--red);font-weight:600;border-left-color:var(--red)}
+.cat-item.has-badge::after{content:'';position:absolute;top:8px;right:12px;width:6px;height:6px;background:var(--red);border-radius:50%}
+.cat-label{display:block;font-size:13px}
+.cat-sub{display:block;font-size:9px;color:#bbb;margin-top:2px}
+
+.product-list{flex:1;overflow-y:auto;padding:0 12px 80px 12px}
+
+.section-header{margin-bottom:8px}
+.section-badge{font-size:12px;background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:12px;display:inline-block}
+.section-title{font-size:14px;font-weight:600;color:#333;margin:16px 0 8px}
+
+.vip-banner{background:linear-gradient(135deg,var(--red),#e85d5d);color:#fff;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.vip-banner-title{font-size:18px;font-weight:700}
+.vip-banner-desc{font-size:12px;margin-top:4px;opacity:.85}
+
+.new-product-banner{background:linear-gradient(135deg,var(--red),#c0392b);color:#fff;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.new-banner-title{font-size:18px;font-weight:700}
+.new-banner-desc{font-size:12px;margin-top:4px;opacity:.85}
+
+.product-card{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.product-img{width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.product-img.placeholder{background:linear-gradient(135deg,#fce4e4,#f9d0d0)}
+.product-detail{flex:1;margin-left:12px}
+.product-name{font-size:14px;font-weight:500;margin-bottom:4px}
+.product-price-row{display:flex;align-items:center;gap:4px;margin-bottom:4px}
+.price-original{font-size:16px;font-weight:700;color:var(--red)}
+.price-unit{font-size:12px;color:var(--gray)}
+.qty-control{display:flex;align-items:center;gap:8px;margin-left:auto}
+.qty-minus,.qty-plus{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer}
+.qty-minus{border:1px solid #ddd;color:#999}
+.qty-plus{background:var(--red);color:#fff}
+.qty-plus.alone{margin-left:auto}
+.qty-num{font-size:14px;min-width:20px;text-align:center}
+.vip-price-tag{display:inline-block;background:linear-gradient(90deg,#fde3c8,#f8c291);color:#b45309;font-size:11px;padding:2px 8px;border-radius:4px}
+.vip-price-tag span{font-weight:700}
+
+.coupon-float{position:fixed;bottom:100px;left:12px;z-index:10;background:var(--red);color:#fff;font-size:13px;font-weight:700;padding:8px 10px;border-radius:8px;text-align:center;line-height:1.3;box-shadow:0 2px 8px rgba(196,20,26,.3)}
+.coupon-float small{font-size:10px;font-weight:400}
+
+.agent-float{position:fixed;bottom:70px;right:16px;z-index:10;width:56px;height:56px;border-radius:50%;overflow:hidden;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.15);background:#fff;display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.agent-float:active{transform:scale(.92)}
+.agent-float img{width:100%;height:100%;object-fit:cover}
+.agent-float.fallback{background:var(--red);font-size:12px;color:#fff;font-weight:700}
+.agent-float.fallback::after{content:'小喜'}
+
+.cart-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;align-items:center;background:#fff;border-top:1px solid var(--border);padding:8px 12px;z-index:10;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+.cart-left{display:flex;align-items:center;flex:1;gap:8px}
+.cart-icon-wrap{position:relative;width:40px;height:40px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cart-logo{width:24px;height:24px;border-radius:50%}
+.cart-badge{position:absolute;top:-4px;right:-4px;background:var(--red);color:#fff;font-size:10px;min-width:16px;height:16px;border-radius:8px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.cart-total{font-size:18px;font-weight:700;color:#333}
+.cart-checkout-btn{background:var(--red);color:#fff;font-size:14px;font-weight:600;padding:10px 24px;border-radius:20px;cursor:pointer}
+
+/* ============================================
+   P2: Agent 欢迎页
+   ============================================ */
+#page-welcome{background:#fff}
+
+.welcome-header{background:linear-gradient(180deg,var(--red) 0%,#e85d5d 60%,#f5f5f5 100%);padding-top:env(safe-area-inset-top,20px);text-align:center;min-height:220px;position:relative;overflow:hidden}
+.welcome-nav{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;color:#fff}
+.welcome-nav .back-btn{font-size:28px;cursor:pointer;color:#fff}
+.nav-dots{font-size:14px;color:rgba(255,255,255,.7)}
+.nav-circle{font-size:18px;color:rgba(255,255,255,.7)}
+.welcome-hero{display:flex;justify-content:center;padding:0;margin-bottom:-40px;position:relative;z-index:0}
+.mascot-img{width:120px;height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15));transform:translateY(10px)}
+.placeholder-mascot{width:80px;height:80px;background:rgba(255,255,255,.3);border-radius:50%}
+
+.welcome-body{background:#fff;border-radius:20px 20px 0 0;margin-top:-20px;position:relative;z-index:1;padding:20px 16px 100px}
+
+.welcome-member{margin-bottom:16px}
+.wm-title{font-size:18px;font-weight:700;color:var(--red)}
+.wm-balance{font-size:12px;color:var(--gray);margin-top:2px}
+.wm-stars{color:var(--gold);font-size:16px;letter-spacing:2px;margin-top:4px}
+
+.welcome-greeting{margin-bottom:16px}
+.greeting-title{font-size:16px;font-weight:700;color:#333;margin-bottom:8px}
+.greeting-body{font-size:14px;color:#666;line-height:1.6}
+
+.promo-tabs{display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid var(--border)}
+.promo-tab{flex:1;text-align:center;font-size:13px;padding:10px 0;color:var(--gray);cursor:pointer;position:relative}
+.promo-tab.active{color:var(--red);font-weight:600}
+.promo-tab.active::after{content:'';position:absolute;bottom:0;left:20%;width:60%;height:2px;background:var(--red);border-radius:1px}
+
+.promo-panels{}
+.promo-panel{display:none}
+.promo-panel.active{display:block}
+.promo-card{display:flex;align-items:center;background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.promo-img{width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.promo-info{flex:1;margin-left:14px}
+.promo-name{font-size:15px;font-weight:700;color:#333;line-height:1.4;margin-bottom:6px}
+.promo-price{font-size:14px;color:#666;margin-bottom:6px}
+.promo-unit{font-size:12px;color:var(--gray)}
+.promo-vip-price{display:inline-block;background:#fff3f3;border:1px solid #ffd0d0;border-radius:6px;padding:3px 8px;font-size:13px;color:var(--red);font-weight:600}
+.promo-add-btn{width:36px;height:36px;background:var(--red);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;flex-shrink:0;box-shadow:0 2px 6px rgba(196,20,26,.3)}
+
+.welcome-suggest{font-size:13px;color:#666;line-height:1.6;margin-bottom:12px}
+.welcome-suggest b{color:#333}
+
+.quick-btns{display:flex;gap:12px;margin-bottom:16px}
+.quick-btn{flex:1;text-align:center;border:1px solid var(--red);color:var(--red);font-size:14px;padding:10px 8px;border-radius:20px;cursor:pointer;transition:all .15s}
+.quick-btn:active{background:var(--red);color:#fff}
+
+.input-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;display:flex;align-items:center;gap:10px;padding:8px 16px;padding-bottom:max(8px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--border);z-index:20}
+.input-field{flex:1;background:var(--gray-light);border-radius:20px;padding:10px 16px;font-size:14px}
+.mic-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;overflow:hidden;background:transparent;padding:0}
+.mic-icon{width:40px;height:40px;object-fit:cover}
+.send-btn{background:var(--red);color:#fff;font-size:14px;font-weight:600;padding:8px 16px;border-radius:20px;cursor:pointer;flex-shrink:0;white-space:nowrap}
+.send-btn:active{opacity:.85}
+
+.powered-by{text-align:center;font-size:10px;color:#ccc;padding:4px 0 4px;background:#fff;margin-top:-4px}
+#page-welcome .input-bar{bottom:24px}
+#page-welcome .powered-by{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;z-index:21}
+
+/* ============================================
+   P3: 对话推荐页
+   ============================================ */
+.chat-nav{display:flex;align-items:center;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top,12px));background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.chat-nav .back-btn{font-size:24px;cursor:pointer;color:#333;margin-right:8px}
+.chat-title{font-size:16px;font-weight:600;flex:1}
+.nav-right{display:flex;gap:12px;color:var(--gray)}
+
+.chat-messages{flex:1;overflow-y:auto;padding:16px 12px 64px;display:flex;flex-direction:column;gap:12px}
+
+.msg-user{align-self:flex-end;background:var(--red-bg);color:#333;padding:10px 14px;border-radius:16px 16px 4px 16px;max-width:75%;font-size:14px;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.msg-agent{display:flex;align-items:flex-start;gap:8px;animation:fadeUp .3s ease;width:100%}
+.msg-agent.full-width{display:block}
+.avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:var(--red);object-fit:cover}
+.avatar-fallback{background:var(--red)}
+.msg-agent-content{background:#fff;border-radius:4px 16px 16px 16px;padding:12px 14px;max-width:calc(100% - 48px);font-size:14px;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+
+.search-status{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:4px}
+.status-row{display:flex;align-items:center;gap:8px;font-size:13px;color:#666;margin-bottom:6px}
+.status-row:last-child{margin-bottom:0}
+.status-icon{color:var(--red);font-size:14px}
+.status-icon.check{color:var(--green)}
+
+.store-card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 6px rgba(0,0,0,.08);margin-top:8px;width:100%}
+.store-card-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.store-logo-sm{width:24px;height:24px;border-radius:50%;flex-shrink:0;overflow:hidden}
+.store-logo-sm img{width:100%;height:100%;object-fit:cover}
+.store-card-name{font-size:14px;font-weight:600}
+.store-card-sub{font-size:11px;color:var(--gray)}
+
+.recommend-item{display:flex;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.recommend-item:last-child{border-bottom:none}
+.rec-img{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.rec-img.placeholder{background:linear-gradient(135deg,#fce4e4,#f9d0d0)}
+.rec-info{flex:1;margin-left:10px}
+.rec-name{font-size:14px;font-weight:600}
+.rec-desc{font-size:11px;color:var(--gray);margin-top:2px}
+.rec-specs{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.rec-spec{display:flex;align-items:center;gap:6px;font-size:12px;background:var(--gray-light);border-radius:8px;padding:8px 10px;width:100%;box-sizing:border-box}
+.rec-spec .rec-add{margin-left:auto}
+.rec-spec-price{font-size:14px;font-weight:700;color:var(--red)}
+.rec-add{width:24px;height:24px;background:var(--red);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;flex-shrink:0}
+
+.guess-like{margin-top:8px}
+.guess-label{display:inline-block;background:var(--green);color:#fff;font-size:11px;padding:3px 10px;border-radius:10px;margin-bottom:8px}
+.guess-item{display:flex;align-items:center;gap:10px}
+.guess-img{width:48px;height:48px;border-radius:8px;object-fit:cover;background:var(--gray-light)}
+.guess-info{flex:1}
+.guess-name{font-size:13px;font-weight:500}
+.guess-desc{font-size:11px;color:var(--gray)}
+
+/* ============================================
+   P4: 订单确认页
+   ============================================ */
+.confirm-body{flex:1;overflow-y:auto;padding:16px 12px 68px}
+
+.agent-msg-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.confirm-hint{font-size:14px;font-weight:500;color:#333;flex:1}
+.collapse-arrow{color:var(--gray);font-size:12px}
+
+.order-card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:12px}
+
+.order-product{display:flex;gap:12px;margin-bottom:12px}
+.order-img{width:80px;height:80px;border-radius:10px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.order-product-info{flex:1}
+.order-product-name{font-size:15px;font-weight:600;color:var(--red);margin-bottom:4px}
+.order-product-spec{font-size:13px;color:var(--gray)}
+.order-qty-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+
+.order-divider{height:1px;background:var(--border);margin:10px 0}
+
+.order-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;font-size:13px}
+.order-row-label{color:#333;font-weight:500;min-width:40px}
+.order-row-content{display:flex;align-items:center;gap:6px;color:var(--gray);flex:1;justify-content:flex-end}
+.coupon-icon{font-size:14px}
+.order-row-arrow{color:var(--gray);font-size:12px}
+
+.order-summary{display:flex;align-items:center;justify-content:space-between;padding-top:8px}
+.order-summary-left{display:flex;align-items:center;gap:8px}
+.discount-text{font-size:12px;color:var(--red)}
+.discount-text b{font-size:13px}
+.original-price{font-size:12px;color:var(--gray);text-decoration:line-through}
+.order-summary-right{display:flex;align-items:center;gap:10px}
+.item-count{font-size:12px;color:var(--gray)}
+.final-price{font-size:20px;font-weight:700;color:#333}
+.settle-btn{background:var(--red);color:#fff;font-size:14px;font-weight:600;padding:8px 20px;border-radius:20px;cursor:pointer;transition:opacity .15s}
+.settle-btn:active{opacity:.8}
+
+.feedback-row{display:flex;gap:12px;padding:8px 0}
+.feedback-btn{font-size:20px;cursor:pointer;opacity:.5;transition:opacity .15s}
+.feedback-btn:active{opacity:1}
+
+/* ============================================
+   P5: 支付弹窗
+   ============================================ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:flex-end;justify-content:center}
+.modal-overlay.hidden{display:none}
+
+.payment-sheet{background:#fff;width:100%;max-width:430px;border-radius:16px 16px 0 0;padding:20px 16px;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:sheetUp .3s ease}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+
+.payment-close{font-size:24px;color:var(--gray);cursor:pointer;width:32px}
+.payment-merchant{text-align:center;font-size:14px;color:#666;margin-bottom:8px}
+.payment-amount{text-align:center;font-size:36px;font-weight:700;margin-bottom:20px}
+.payment-num{font-feature-settings:'tnum'}
+
+.payment-method-section{margin-bottom:20px}
+.payment-method-label{font-size:13px;color:var(--gray);margin-bottom:10px;display:flex;justify-content:space-between}
+.method-change{color:var(--gray);font-size:12px}
+
+.payment-method-card{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;margin-bottom:8px}
+.payment-method-card.active{background:#fff8f0;border:1px solid #f0d0a0}
+.method-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.method-icon.cmb{background:#c41a1a;color:#fff}
+.method-icon.bocom{background:#2c5aa0;color:#fff}
+.method-info{flex:1}
+.method-name{font-size:14px}
+.method-number{font-size:12px;color:var(--gray)}
+.method-check{color:var(--green);font-size:18px}
+.method-use{color:#4a90d9;font-size:13px}
+
+.keypad-input{display:flex;justify-content:center;gap:10px;margin-bottom:16px}
+.dot{font-size:12px;color:#333}
+.dot.empty{color:#ccc}
+
+.keypad-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.key{background:#fff;text-align:center;padding:14px;font-size:22px;font-weight:500;cursor:pointer;transition:background .1s}
+.key:active{background:var(--gray-light)}
+.key.del{font-size:18px}
+
+/* ============================================
+   P6: 支付完成页
+   ============================================ */
+.success-body{flex:1;overflow-y:auto;padding:16px 12px 68px}
+
+.success-collapse{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+
+/* ====== New Card Interaction Styles ====== */
+.card-container { margin-bottom: 12px; }
+.card-container.user-msg { display: flex; justify-content: flex-end; }
+.card-folded { background: #fff; border-radius: 12px; padding: 10px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06); display: flex; align-items: center; justify-content: space-between; cursor: pointer; border: 1px solid #f0f0f0; margin-bottom: 8px; }
+.card-folded .folded-text { font-size: 13px; font-weight: 500; color: #333; display: flex; align-items: center; gap: 8px; }
+.card-folded .status-icon { color: var(--red); font-size: 14px; }
+.card-folded .folded-arrow { font-size: 12px; color: #999; transition: transform 0.3s; }
+.card-folded.is-active .folded-arrow { transform: rotate(180deg); }
+
+.card-content-wrapper { overflow: hidden; transition: max-height 0.3s ease-out; max-height: 1000px; }
+.card-content-wrapper.collapsed { max-height: 0; }
+
+/* Nutrition tip */
+.nutrition-tip { display: inline-flex; align-items: center; gap: 6px; background: #fff5f5; border: 1px solid #ffe3e3; border-radius: 20px; padding: 6px 14px; margin: 10px 0; font-size: 12px; color: var(--red); box-shadow: 0 1px 3px rgba(196,20,26,0.05); }
+.nutrition-icon { font-size: 14px; flex-shrink: 0; }
+.nutrition-text { font-weight: 600; }
+
+/* Spec row layout */
+.rec-spec { display: flex; align-items: center; justify-content: space-between; padding: 4px 0; font-size: 13px; color: #666; }
+.spec-label { flex-shrink: 0; }
+.spec-right { display: flex; align-items: center; gap: 6px; }
+.rec-spec-price { font-size: 14px; font-weight: 600; color: var(--red); }
+
+/* Quantity control (− num ＋) */
+.spec-qty-wrap { display: flex; align-items: center; gap: 0; }
+.qty-ctrl { display: flex; align-items: center; }
+.spec-minus, .spec-plus { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; cursor: pointer; user-select: none; border-radius: 50%; }
+.spec-minus { color: var(--gray); border: 1px solid #ddd; background: #fff; }
+.spec-plus { color: #fff; background: var(--red); }
+.guess-plus { width: 24px; height: 24px; border-radius: 50%; }
+.spec-num { min-width: 20px; text-align: center; font-size: 14px; font-weight: 600; color: #333; }
+
+/* Card order section (优惠 & 备注 inside recommend card) */
+.card-order-section { border-top: 1px solid #eee; margin-top: 12px; padding-top: 8px; }
+.card-order-section .order-row { padding: 6px 0; }
+
+.checkout-bar { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid #eee; margin-top: 12px; }
+.checkout-bar-left { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: #333; }
+.checkout-bar-btn { background: var(--red); color: #fff; font-size: 14px; font-weight: 600; padding: 8px 20px; border-radius: 20px; cursor: pointer; }
+.checkout-bar-btn.disabled { background: #ccc; cursor: not-allowed; }
+
+/* ============================================
+   P7: 订单详情页
+   ============================================ */
+#page-order-detail { background: #f5f5f5; }
+.order-detail-status { font-size: 24px; font-weight: 700; color: var(--red); margin-bottom: 20px; text-align: left; }
+.detail-info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; color: #666; }
+.detail-info-label { color: #333; font-weight: 500; }
+.detail-footer { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 12px 16px; padding-bottom: max(12px, env(safe-area-inset-bottom)); border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 12px; max-width: 430px; margin: 0 auto; }
+.footer-btn { padding: 8px 20px; border-radius: 20px; font-size: 14px; border: 1px solid #ddd; background: #fff; }
+.footer-btn.primary { background: var(--red); color: #fff; border-color: var(--red); }
+
+.success-order-summary{margin-top:12px}
+.success-item-row{display:flex;align-items:center;gap:8px;font-size:14px;padding:6px 0;border-bottom:1px solid var(--border)}
+.success-dot{color:var(--red);font-size:14px}
+.success-check{color:var(--red);margin-left:auto;font-size:16px}
+
+.success-item-detail{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.success-img{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.success-item-info{flex:1}
+.success-item-name{font-size:13px;font-weight:500}
+.success-item-spec{font-size:11px;color:var(--gray);margin-top:2px}
+.vip-badge-sm{background:linear-gradient(90deg,#fde3c8,#f8c291);color:#b45309;font-size:10px;padding:1px 6px;border-radius:3px}
+.success-item-qty{font-size:12px;color:var(--gray)}
+.success-item-prices{text-align:right}
+.price-del{font-size:12px;color:var(--gray);text-decoration:line-through;display:block}
+.price-real{font-size:14px;font-weight:600;color:#333}
+.brand-stamp{width:28px;height:28px;border-radius:50%;flex-shrink:0;opacity:.6}
+
+.success-payment-row{display:flex;align-items:center;gap:8px;font-size:14px;padding:10px 0}
+.wechat-icon{color:var(--green);font-size:16px}
+
+.success-agent-text{font-size:14px;font-weight:500;color:#333}
+
+.success-detail-card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-top:12px}
+
+.detail-title{font-size:15px;font-weight:600;margin-bottom:12px}
+.detail-product-row{display:flex;align-items:center;gap:10px;padding-bottom:12px}
+.detail-img{width:56px;height:56px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--gray-light)}
+.detail-product-info{flex:1}
+.detail-product-name{font-size:13px;font-weight:500}
+.discount-badge{display:inline-block;background:var(--red);color:#fff;font-size:10px;padding:1px 4px;border-radius:3px;margin-right:2px}
+.detail-spec{font-size:11px;color:var(--gray);margin-top:2px}
+.detail-qty{font-size:12px;color:var(--gray)}
+.detail-prices{text-align:right}
+
+.detail-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;color:var(--gray)}
+.green{color:var(--green)}
+.detail-total-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:13px}
+.detail-action{text-align:right;margin-top:8px}
+.detail-btn{background:#fff;border:1px solid var(--border);border-radius:16px;padding:6px 16px;font-size:13px;color:#333;cursor:pointer}
+
+/* ====== Coupon Order Card ====== */
+.co-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.08); margin-top: 4px; }
+.co-store-bar { display: flex; align-items: flex-start; gap: 6px; background: #fff3f3; padding: 12px 14px; border-bottom: 1px solid #ffe5e5; }
+.co-store-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; color: var(--red); }
+.co-store-info { flex: 1; }
+.co-store-name { font-size: 14px; font-weight: 700; color: var(--red); }
+.co-store-arrow { font-size: 12px; color: #999; }
+.co-store-sub { font-size: 11px; color: #999; margin-top: 2px; }
+.co-nutrition-wrap { padding: 8px 14px 0; }
+.co-nutrition-tip { margin: 0 !important; }
+.co-promo-bar { background: #fff8e1; padding: 8px 14px; border-bottom: 1px solid #ffeeba; }
+.co-promo-tag { font-size: 12px; color: #b45309; font-weight: 500; }
+.co-item-list { padding: 0 14px; }
+.co-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
+.co-item-img { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; flex-shrink: 0; background: var(--gray-light); }
+.co-item-info { flex: 1; min-width: 0; }
+.co-item-name { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 2px; }
+.co-item-desc { font-size: 11px; color: #999; margin-bottom: 8px; }
+.co-spec-row { display: flex; align-items: center; gap: 4px; margin-top: 6px; }
+.co-spec-label { font-size: 13px; color: #555; flex: 1; }
+.co-spec-price { font-size: 14px; font-weight: 700; color: var(--red); margin-right: 6px; }
+.co-card .spec-qty-wrap { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.co-card .qty-ctrl { display: inline-flex; align-items: center; gap: 6px; }
+.co-card .spec-minus { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: #f0f0f0; color: #333; font-size: 16px; border-radius: 50%; cursor: pointer; flex-shrink: 0; }
+.co-card .spec-num { font-size: 15px; font-weight: 700; min-width: 18px; text-align: center; }
+.co-plus { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--red); color: #fff !important; font-size: 20px; border-radius: 50%; cursor: pointer; line-height: 1; flex-shrink: 0; }
+.co-footer-section { padding: 10px 14px; border-top: 1px solid #f5f5f5; }
+.co-coupon-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+.co-coupon-label { color: #666; }
+.co-coupon-val { color: var(--red); font-size: 12px; }
+.co-coupon-arrow { color: #999; }
+.co-checkout-bar { display: flex; align-items: center; justify-content: space-between; padding: 14px 14px; border-top: 1px solid #f0f0f0; }
+.co-total { font-size: 20px; font-weight: 700; color: #333; }
+.co-checkout-btn { background: var(--red); color: #fff; font-size: 15px; font-weight: 600; padding: 12px 24px; border-radius: 24px; cursor: pointer; }
+.co-checkout-btn:active { opacity: .85; }
+
+/* ====== Coupon Card ====== */
+.coupon-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin-top: 4px; }
+.coupon-banner-img { width: 100%; height: auto; display: block; }
+.coupon-card-body { padding: 12px 16px 16px; }
+.coupon-title { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.coupon-desc { font-size: 12px; color: var(--gray); margin-bottom: 2px; }
+.coupon-use-btn { display: block; width: 100%; margin-top: 14px; background: var(--red); color: #fff; font-size: 15px; font-weight: 600; text-align: center; padding: 12px 0; border-radius: 10px; cursor: pointer; border: none; }
+.coupon-use-btn:active { opacity: .85; }
+
+/* ====== Utility ====== */
+.hidden{display:none!important}
+
+/* ====== Typing Animation ====== */
+.typing-dot{display:inline-block;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
